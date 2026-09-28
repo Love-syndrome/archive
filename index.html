@@ -711,9 +711,14 @@ function parseText(){
  raw=raw.replace(/\[\[\/(left|right|center)\]\]\s*\n(?=\[\[(?:left|right|center)\]\])/gi,'[[/$1]]\n\n');
   // ← / → / ↔ 로 시작하는 줄은 빈 줄이 없어도 각각 독립 말풍선으로 취급합니다.
   raw=raw.replace(/\n(?=[ \t]*(?:←|→|↔)\s*)/g,'\n\n');
- const tokens=raw.split(/(\n{2,})/),parts=[];
+  // 일본어 문장 바로 다음 줄의 (한국어 번역)은 엔터 한 번만 쳐도 별도 번역 블록으로 분리합니다.
+  // 이 자동 분리는 실제 빈 줄로 취급하지 않으므로 번역 앞에 불필요한 공백이 생기지 않습니다.
+  const AUTO_TRANSLATION_BREAK='\uE000';
+  raw=raw.replace(/([^\n]*[ぁ-んァ-ヶ一-龯々〆ヵヶ][^\n]*)\n(?=[ \t]*\([^\n]*\)[ \t]*(?:\n|$))/g,`$1\n${AUTO_TRANSLATION_BREAK}\n`);
+ const tokens=raw.split(new RegExp(`(\\n{2,}|\\n${AUTO_TRANSLATION_BREAK}\\n)`)),parts=[];
  for(const token of tokens){
   if(!token)continue;
+  if(token===`\n${AUTO_TRANSLATION_BREAK}\n`)continue;
   if(/^\n{2,}$/.test(token)){parts.push({__spacer:true,lines:1});continue}
   const t=token.trim();if(t)parts.push(t)
  }
