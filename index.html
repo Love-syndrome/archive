@@ -720,9 +720,20 @@ function parseText(){
   // ← / → / ↔ 로 시작하는 줄은 빈 줄이 없어도 각각 독립 말풍선으로 취급합니다.
   raw=raw.replace(/\n(?=[ \t]*(?:←|→|↔)\s*)/g,'\n\n');
   // 일본어 문장 바로 다음 줄의 (한국어 번역)은 엔터 한 번만 쳐도 별도 번역 블록으로 분리합니다.
+  // 보조색/형광/볼드/글꼴 등의 rich 태그가 번역문에 붙어 있어도, 화면에 보이는 실제 텍스트만 보고 판별합니다.
   // 이 자동 분리는 실제 빈 줄로 취급하지 않으므로 번역 앞에 불필요한 공백이 생기지 않습니다.
   const AUTO_TRANSLATION_BREAK='\uE000';
-  raw=raw.replace(/([^\n]*[ぁ-んァ-ヶ一-龯々〆ヵヶ][^\n]*)\n(?=[ \t]*\([^\n]*\)[ \t]*(?:\n|$))/g,`$1\n${AUTO_TRANSLATION_BREAK}\n`);
+  {
+    const lines=raw.split('\n'), rebuilt=[];
+    for(let i=0;i<lines.length;i++){
+      const line=lines[i], next=i+1<lines.length?lines[i+1]:'';
+      rebuilt.push(line);
+      const visibleLine=stripRichMarkup(line).trim();
+      const visibleNext=stripRichMarkup(next).trim();
+      if(/[ぁ-んァ-ヶ一-龯々〆ヵヶ]/.test(visibleLine) && /^\([\s\S]*\)$/.test(visibleNext)) rebuilt.push(AUTO_TRANSLATION_BREAK);
+    }
+    raw=rebuilt.join('\n');
+  }
  const tokens=raw.split(new RegExp(`(\\n{2,}|\\n${AUTO_TRANSLATION_BREAK}\\n)`)),parts=[];
  for(const token of tokens){
   if(!token)continue;
