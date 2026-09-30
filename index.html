@@ -15,6 +15,10 @@
 @font-face{font-family:"ExcerptNanumMyeongjo";src:url("./NanumMyeongjo.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:"ExcerptGalmuri11";src:url("./Galmuri11.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:"ExcerptMyoeun";src:url("./Griun_MyoeunHeullim-Rg.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"ExcerptHSYuji";src:url("./HS유지체.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"ExcerptDDURAE";src:url("./GriunXHangeul_DDURAE-Rg.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"ExcerptSarangSeuReoUn";src:url("./GriunXHangeul_SarangSeuReoUn-Rg.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"ExcerptKoPubBatangLight";src:url("./KoPubWorld%20Batang%20Light.ttf") format("truetype");font-style:normal;font-weight:300;font-display:swap}
 :root{
   --ui-bg:#f5f4f1;--panel:#fff;--soft:#f7f7f8;--line:#e7e5e1;--ink:#343438;--muted:#99979a;
   --dark:#44454a;--accent:#45464b;--radius:18px;--shadow:0 16px 48px rgba(40,40,45,.08);
@@ -323,6 +327,24 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
 .capture[data-theme=chat][data-chat-style=imessage] .chat-row.group-continues,
 .capture[data-theme=chat][data-chat-style=imessage] .chat-row.im-joined,
 .capture[data-theme=chat][data-chat-style=imessage] .chat-row.im-break{margin-bottom:var(--bubble-gap,12px)!important;}
+
+/* preview zoom only — visual preview scale; PNG/output data is untouched */
+.preview-shell{padding:0!important;overflow:hidden}
+.preview-toolbar{padding:12px 14px!important;margin:0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.preview-zoom-control{display:flex;align-items:center;gap:8px;margin-left:auto;margin-right:4px;min-width:190px}
+.preview-zoom-control .preview-zoom-label{font-size:9px;color:#8f8d91;white-space:nowrap}
+.preview-zoom-control input[type=range]{width:110px;min-width:80px}
+.preview-zoom-value{min-width:42px;height:30px;border:1px solid #dedcdf;border-radius:9px;background:#fff;display:grid;place-items:center;font-size:10px;font-weight:800;color:#55565a}
+.canvas-stage{padding:0!important;border:0!important;border-radius:0 0 25px 25px!important}
+.capture{zoom:var(--preview-zoom,1)}
+@media(max-width:680px){
+ .preview-shell{padding:0!important}
+ .mobile-preview-open .preview-shell{padding:0!important}
+ .mobile-preview-open .preview-toolbar{padding:9px 10px!important;margin:0!important}
+ .mobile-preview-open .canvas-stage{padding:0!important}
+ .preview-zoom-control{order:3;width:100%;margin:4px 0 0;min-width:0}
+ .preview-zoom-control input[type=range]{flex:1;width:auto}
+}
 </style>
 </head>
 <body>
@@ -383,7 +405,11 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
             <option value="pretendardjp">Pretendard JP</option>
             <option value="galmuri11">Galmuri11</option>
             <option value="myoeun">그리운 묘은흘림체</option>
+            <option value="ddurae">그리운X국한박 뚜레</option>
+            <option value="sarangseureoun">그리운X국한박 사랑스러운</option>
+            <option value="hsyuji">HS유지체</option>
             <option value="dunggeunmo">둥근모꼴+</option>
+            <option value="kopubbatang">KoPubWorld 바탕 Light</option>
             <option value="ridibatang">리디바탕</option>
             <option value="nanummyeongjo">나눔명조</option>
             <option value="custom">업로드 폰트</option>
@@ -539,7 +565,11 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
           <option value="pretendardjp">Pretendard JP</option>
           <option value="galmuri11">Galmuri11</option>
           <option value="myoeun">그리운 묘은흘림체</option>
+          <option value="ddurae">그리운X국한박 뚜레</option>
+          <option value="sarangseureoun">그리운X국한박 사랑스러운</option>
+          <option value="hsyuji">HS유지체</option>
           <option value="dunggeunmo">둥근모꼴+</option>
+          <option value="kopubbatang">KoPubWorld 바탕 Light</option>
           <option value="ridibatang">리디바탕</option>
           <option value="nanummyeongjo">나눔명조</option>
           <option value="custom">업로드 폰트</option>
@@ -550,14 +580,18 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
           <option value="pretendardjp">Pretendard JP</option>
           <option value="galmuri11">Galmuri11</option>
           <option value="myoeun">그리운 묘은흘림체</option>
+          <option value="ddurae">그리운X국한박 뚜레</option>
+          <option value="sarangseureoun">그리운X국한박 사랑스러운</option>
+          <option value="hsyuji">HS유지체</option>
           <option value="dunggeunmo">둥근모꼴+</option>
+          <option value="kopubbatang">KoPubWorld 바탕 Light</option>
           <option value="ridibatang">리디바탕</option>
           <option value="nanummyeongjo">나눔명조</option>
           <option value="custom">업로드 폰트</option>
         </select>
         <div class="hint">제목 글꼴은 기본 글꼴과 완전히 별도로 적용됩니다. 장면 제목과 네이버 블로그 제목에만 사용하고, 본문·말풍선·메타 정보는 위의 기본 글꼴을 사용해요.</div>
         <label class="field">내 폰트 파일</label><div class="upload-row"><input id="customFontFile" type="file" accept=".woff,.woff2,.ttf,.otf,font/woff,font/woff2,font/ttf,font/otf"><button class="btn" id="clearCustomFont" type="button">지우기</button></div>
-        <div class="hint" id="customFontStatus">기본 글꼴의 기본값은 Pretendard입니다. 제목 글꼴은 별도로 선택할 수 있어요. Galmuri11·그리운 묘은흘림체를 포함한 등록 폰트는 index.html과 같은 폴더에서 자동으로 불러옵니다. 직접 업로드한 폰트는 현재 브라우저 세션에서만 유지됩니다.</div>
+        <div class="hint" id="customFontStatus">기본 글꼴의 기본값은 Pretendard입니다. 제목 글꼴은 별도로 선택할 수 있어요. 등록 폰트는 index.html과 같은 폴더에서 자동으로 불러옵니다. 직접 업로드한 폰트는 현재 브라우저 세션에서만 유지됩니다.</div>
       </div>
     </section>
 
@@ -652,7 +686,7 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
   </aside>
 
   <section class="preview-shell" id="previewShell">
-    <div class="preview-toolbar"><div><strong>미리보기</strong><div><small>PNG 저장 결과에 이미지·말풍선·여백 설정이 그대로 반영됩니다.</small></div></div><div class="toolbar-actions"><button class="btn" id="jumpEditor">편집</button><button class="btn dark" id="downloadTop">PNG 저장</button><button class="btn mobile-preview-close" id="closePreview">닫기</button></div></div>
+    <div class="preview-toolbar"><div><strong>미리보기</strong><div><small>PNG 저장 결과에 이미지·말풍선·여백 설정이 그대로 반영됩니다.</small></div></div><div class="preview-zoom-control"><span class="preview-zoom-label">미리보기 크기</span><input id="previewZoom" type="range" min="35" max="120" step="5" value="100" aria-label="미리보기 크기"><span class="preview-zoom-value" id="previewZoomValue">100%</span></div><div class="toolbar-actions"><button class="btn" id="jumpEditor">편집</button><button class="btn dark" id="downloadTop">PNG 저장</button><button class="btn mobile-preview-close" id="closePreview">닫기</button></div></div>
     <div class="canvas-stage" id="canvasStage"><div class="capture ratio-content" id="capture" data-theme="clean"><div class="capture-bg" id="captureBg"></div><div class="side-image left" id="sideLeftPreview"><img id="sideLeftPreviewImg" alt=""></div><div class="side-image right" id="sideRightPreview"><img id="sideRightPreviewImg" alt=""></div><div class="film-ui"></div><div class="chat-head"><div class="chat-head-avatar" id="chatHeadAvatar"></div><div><div class="chat-head-name" id="chatHeadName">Chat</div><div class="chat-head-status"></div></div></div><div class="imessage-head" id="imessageHead"><div class="imessage-back">‹</div><div class="imessage-avatar" id="imessageAvatar"></div><div class="imessage-contact-name" id="imessageContactName"></div></div><div class="capture-inner" id="captureInner"><div class="x-view" id="twitterView"><div class="x-nav"><span>←</span><b>게시</b><span class="x-more">•••</span></div><div class="x-post"><div class="x-author"><div class="x-avatar" id="twitterAvatarPreview"></div><div class="x-author-info"><b id="twitterNamePreview"></b><span id="twitterHandlePreview"></span></div></div><div class="x-body" id="twitterBodyPreview"></div><div class="x-media" id="twitterMediaPreview"></div><div class="x-meta" id="twitterMetaPreview"></div><div class="x-actions"><span class="x-action reply"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9.7 9.7 0 0 1-4-.8L3 21l1.6-4.4A8.2 8.2 0 0 1 3 11.5 8.5 8.5 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5Z"/></svg><span class="x-action-count" id="twitterRepliesPreview"></span></span><span class="x-action repost"><svg viewBox="0 0 24 24"><path d="m7 7 3-3 3 3"/><path d="M10 4v12a4 4 0 0 0 4 4h3"/><path d="m17 17 3 3-3 3"/></svg><span class="x-action-count" id="twitterRepostsPreview"></span></span><span class="x-action like"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.9-8.6a5.5 5.5 0 0 0-.1-7.8Z"/></svg><span class="x-action-count" id="twitterLikesPreview"></span></span><span class="x-action bookmark"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg></span><span class="x-action share"><svg viewBox="0 0 24 24"><path d="M12 16V3"/><path d="m7 8 5-5 5 5"/><path d="M5 13v7h14v-7"/></svg></span></div></div><div class="x-mentions" id="twitterMentionsPreview"></div></div><div class="ig-view" id="instagramView"><div class="ig-nav"><span class="ig-back">‹</span><div class="ig-nav-center"><b>게시물</b><span id="instagramTopIdPreview"></span></div><span class="ig-more">•••</span></div><div class="ig-author"><div class="ig-avatar" id="instagramAvatarPreview"></div><div class="ig-author-main"><div class="ig-author-line"><span id="instagramAuthorIdPreview"></span><span class="ig-verified" id="instagramVerifiedPreview">✓</span></div><div class="ig-song" id="instagramSongPreview"></div></div><div class="ig-author-more">≡</div></div><div class="ig-media" id="instagramMediaPreview"></div><div class="ig-dots" id="instagramDotsPreview"></div><div class="ig-actions">
 <svg class="ig-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.9-8.6a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
 <svg class="ig-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.4 9.4 0 0 1-3.8-.8L3 21l1.7-4.8A8.2 8.2 0 0 1 3 11.5 8.5 8.5 0 1 1 21 11.5Z"/></svg>
@@ -687,6 +721,8 @@ const SAMPLE=$('#inputText').value;
 const STORAGE='excerptStudioV5'; const SETTINGS_PRESETS='excerptStudioSettingsPresetsV1'; const MEMBER_PRESET='excerptStudioMemberPresetsV1';
 let state={theme:'clean',outerMode:'auto',bubbleAlign:'both',bubbleTheme:'basic',avatarShape:'circle',chatStyle:'custom',bgData:'',naverProfile:'',twitterProfile:'',twitterMentionProfiles:{1:'',2:'',3:''},instagramProfile:'',themePostImages:{naver:'',twitter:'',instagram:''},themePostCrop:{naver:{x:50,y:50,zoom:1},twitter:{x:50,y:50,zoom:1},instagram:{x:50,y:50,zoom:1}},customFontLoaded:false,members:[],inlineImages:{1:'',2:'',3:''},inlineCrop:{1:{x:50,y:50,zoom:1},2:{x:50,y:50,zoom:1},3:{x:50,y:50,zoom:1}},sideLeftData:'',sideRightData:'',sideCrop:{left:{x:50,y:50,zoom:1},right:{x:50,y:50,zoom:1}}};
 function toast(msg){const t=$('#toast');t.textContent=msg;t.style.opacity='1';t.style.transform='translate(-50%,0)';clearTimeout(toast.t);toast.t=setTimeout(()=>{t.style.opacity='0';t.style.transform='translate(-50%,16px)'},1700)}
+function applyPreviewZoom(){const z=$('#previewZoom');if(!z)return;const pct=Math.max(35,Math.min(120,+z.value||100));$('#capture').style.setProperty('--preview-zoom',String(pct/100));const out=$('#previewZoomValue');if(out)out.textContent=pct+'%'}
+
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 function stripQuotes(s){return String(s).trim().replace(/^(?:「|『|“|‘|\")/,'').replace(/(?:」|』|”|’|\")$/,'').trim()}
 function hasCJK(s){return /[\u3040-\u30ff\u3400-\u9fff]/.test(s)}
@@ -921,7 +957,11 @@ function fontFamilyByValue(value){
  if(v==='pretendardjp')return '"ExcerptPretendardJP","ExcerptPretendard",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",ui-sans-serif,system-ui,sans-serif';
  if(v==='galmuri11')return '"ExcerptGalmuri11","ExcerptPretendardJP","ExcerptPretendard",ui-monospace,monospace';
  if(v==='myoeun')return '"ExcerptMyoeun","ExcerptRIDIBatang","ExcerptNanumMyeongjo",serif';
+ if(v==='ddurae')return '"ExcerptDDURAE","ExcerptPretendard",sans-serif';
+ if(v==='sarangseureoun')return '"ExcerptSarangSeuReoUn","ExcerptPretendard",sans-serif';
+ if(v==='hsyuji')return '"ExcerptHSYuji","ExcerptPretendard",sans-serif';
  if(v==='dunggeunmo')return '"ExcerptDungGeunMo",ui-monospace,monospace';
+ if(v==='kopubbatang')return '"ExcerptKoPubBatangLight","ExcerptRIDIBatang","ExcerptNanumMyeongjo",serif';
  if(v==='ridibatang')return '"ExcerptRIDIBatang",Georgia,"Noto Serif KR",serif';
  if(v==='nanummyeongjo')return '"ExcerptNanumMyeongjo",Georgia,"Noto Serif KR",serif';
  if(v==='custom'&&state.customFontLoaded)return '"ExcerptCustom",ui-sans-serif,system-ui,sans-serif';
@@ -1349,7 +1389,7 @@ for(const key of ['naver','twitter','instagram']){const inp=$('#'+key+'PostImage
 $$('.crop-theme-post-image').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.themeImage;openCropEditor('theme',key,state.themePostImages?.[key]||'',false)}));
 $$('.clear-theme-post-image').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.themeImage;state.themePostImages=state.themePostImages||{naver:'',twitter:'',instagram:''};state.themePostCrop=state.themePostCrop||{};state.themePostImages[key]='';state.themePostCrop[key]={x:50,y:50,zoom:1};const inp=$('#'+key+'PostImage');if(inp)inp.value='';update()}));
 function selectedRegisteredFontName(v){
- return ({pretendard:'ExcerptPretendard',pretendardjp:'ExcerptPretendardJP',galmuri11:'ExcerptGalmuri11',myoeun:'ExcerptMyoeun',dunggeunmo:'ExcerptDungGeunMo',ridibatang:'ExcerptRIDIBatang',nanummyeongjo:'ExcerptNanumMyeongjo',custom:'ExcerptCustom'})[v]||'';
+ return ({pretendard:'ExcerptPretendard',pretendardjp:'ExcerptPretendardJP',galmuri11:'ExcerptGalmuri11',myoeun:'ExcerptMyoeun',ddurae:'ExcerptDDURAE',sarangseureoun:'ExcerptSarangSeuReoUn',hsyuji:'ExcerptHSYuji',dunggeunmo:'ExcerptDungGeunMo',kopubbatang:'ExcerptKoPubBatangLight',ridibatang:'ExcerptRIDIBatang',nanummyeongjo:'ExcerptNanumMyeongjo',custom:'ExcerptCustom'})[v]||'';
 }
 async function ensureFontValue(v){
  if(v==='body')v=$('#fontFamily').value;const name=selectedRegisteredFontName(v);
@@ -1364,7 +1404,7 @@ async function warmDefaultFont(){
  update();
 }
 $('#fontFamily').addEventListener('change',ensureSelectedFont);$('#titleFontFamily').addEventListener('change',async()=>{let v=$('#titleFontFamily').value;if(v==='body'){v='pretendard';$('#titleFontFamily').value=v}await ensureFontValue(v);update()});$('#inlineFontSelect').addEventListener('change',()=>ensureFontValue($('#inlineFontSelect').value));
-$('#customFontFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const buf=await file.arrayBuffer();const face=new FontFace('ExcerptCustom',buf);await face.load();document.fonts.add(face);state.customFontLoaded=true;$('#fontFamily').value='custom';$('#customFontStatus').textContent='적용됨: '+file.name+' · 현재 브라우저 세션에서 사용 중';update();toast('폰트를 적용했어요.')}catch(err){console.error(err);state.customFontLoaded=false;toast('폰트를 불러오지 못했어요.')}});$('#clearCustomFont').addEventListener('click',()=>{state.customFontLoaded=false;$('#customFontFile').value='';if($('#fontFamily').value==='custom')$('#fontFamily').value='pretendard';if($('#titleFontFamily').value==='custom')$('#titleFontFamily').value='pretendard';if($('#inlineFontSelect').value==='custom')$('#inlineFontSelect').value='body';$('#customFontStatus').textContent='기본 글꼴의 기본값은 Pretendard입니다. 제목 글꼴은 별도로 선택할 수 있어요. Galmuri11·그리운 묘은흘림체를 포함한 등록 폰트는 index.html과 같은 폴더에서 자동으로 불러옵니다. 직접 업로드한 폰트는 현재 브라우저 세션에서만 유지됩니다.';update()});
+$('#customFontFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const buf=await file.arrayBuffer();const face=new FontFace('ExcerptCustom',buf);await face.load();document.fonts.add(face);state.customFontLoaded=true;$('#fontFamily').value='custom';$('#customFontStatus').textContent='적용됨: '+file.name+' · 현재 브라우저 세션에서 사용 중';update();toast('폰트를 적용했어요.')}catch(err){console.error(err);state.customFontLoaded=false;toast('폰트를 불러오지 못했어요.')}});$('#clearCustomFont').addEventListener('click',()=>{state.customFontLoaded=false;$('#customFontFile').value='';if($('#fontFamily').value==='custom')$('#fontFamily').value='pretendard';if($('#titleFontFamily').value==='custom')$('#titleFontFamily').value='pretendard';if($('#inlineFontSelect').value==='custom')$('#inlineFontSelect').value='body';$('#customFontStatus').textContent='기본 글꼴의 기본값은 Pretendard입니다. 제목 글꼴은 별도로 선택할 수 있어요. 등록 폰트는 index.html과 같은 폴더에서 자동으로 불러옵니다. 직접 업로드한 폰트는 현재 브라우저 세션에서만 유지됩니다.';update()});
 $('#addMember').addEventListener('click',addMember);$('#memberList').addEventListener('input',e=>{const id=e.target.dataset.id,m=state.members.find(x=>x.id===id);if(!m)return;if(e.target.classList.contains('member-name'))m.name=e.target.value;if(e.target.classList.contains('member-bubble'))m.bubble=e.target.value;if(e.target.classList.contains('member-namecolor'))m.nameColor=e.target.value;update()});$('#memberList').addEventListener('change',e=>{const id=e.target.dataset.id,m=state.members.find(x=>x.id===id);if(!m)return;if(e.target.classList.contains('member-side'))m.side=e.target.value;if(e.target.classList.contains('member-image'))fileToData(e.target.files&&e.target.files[0],d=>{m.image=d;update()});update()});$('#memberList').addEventListener('click',e=>{const del=e.target.closest('.member-delete'),clr=e.target.closest('.member-image-clear');if(del){state.members=state.members.filter(m=>m.id!==del.dataset.id);renderMembers();update()}if(clr){const m=state.members.find(x=>x.id===clr.dataset.id);if(m)m.image='';renderMembers();update()}});
 $('#saveMemberPreset').addEventListener('click',()=>{const name=prompt('프리셋 이름을 입력하세요.');if(!name)return;const p=readMemberPresets();p[name]=JSON.parse(JSON.stringify(state.members));localStorage.setItem(MEMBER_PRESET,JSON.stringify(p));refreshPresetSelect();$('#memberPreset').value=name;toast('멤버 프리셋을 저장했어요.')});$('#memberPreset').addEventListener('change',()=>{const p=readMemberPresets();if(p[$('#memberPreset').value]){state.members=JSON.parse(JSON.stringify(p[$('#memberPreset').value]));renderMembers();update()}});$('#deleteMemberPreset').addEventListener('click',()=>{const k=$('#memberPreset').value;if(!k)return;const p=readMemberPresets();delete p[k];localStorage.setItem(MEMBER_PRESET,JSON.stringify(p));refreshPresetSelect();toast('프리셋을 삭제했어요.')});
 const textArea=$('#inputText');['select','keyup','mouseup','touchend','input'].forEach(ev=>textArea.addEventListener(ev,rememberTextSelection));$('#formatToolbar').addEventListener('pointerdown',rememberTextSelection);
@@ -1425,7 +1465,8 @@ $('#clearText').addEventListener('click',()=>{
  const fileIds=['bgImage','sideLeftImage','sideRightImage','naverProfile','twitterProfile','instagramProfile','naverPostImage','twitterPostImage','instagramPostImage'];
  for(let i=1;i<=3;i++)fileIds.push('inlineImage'+i,'twitterMention'+i+'Profile');
  fileIds.forEach(id=>{const el=$('#'+id);if(el)el.value=''});
- update();
+ $('#previewZoom')?.addEventListener('input',applyPreviewZoom);applyPreviewZoom();
+update();
  toast('본문·장면 정보·테마 글과 이미지를 모두 비웠어요. 멤버 프리셋은 유지됩니다.');
 });
 function openMobilePreview(){const app=$('#app');app.classList.add('mobile-preview-open');document.body.style.overflow='hidden';const shell=$('#previewShell');shell.scrollTop=0;window.scrollTo(0,0)}function closeMobilePreview(){const app=$('#app');app.classList.remove('mobile-preview-open');document.body.style.overflow='';window.scrollTo(0,0)}$('#openPreview').addEventListener('click',openMobilePreview);$('#closePreview').addEventListener('click',closeMobilePreview);$('#jumpEditor').addEventListener('click',closeMobilePreview);
