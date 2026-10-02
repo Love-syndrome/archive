@@ -79,6 +79,8 @@
 .side-image{position:absolute;top:0;bottom:0;z-index:1;background-position:center;background-repeat:no-repeat;pointer-events:none}.side-image.left{left:0;width:var(--side-left-w,0px)}.side-image.right{right:0;width:var(--side-right-w,0px)}
 .palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.palette-item{border:1px solid #e1dfe1;background:#fff;border-radius:11px;padding:7px;text-align:center}.palette-item input{width:100%;height:32px}.palette-item b{display:block;font-size:8px;margin-top:4px;color:#828086}
 .rich-span{box-decoration-break:clone;-webkit-box-decoration-break:clone}.rich-span-hl{display:inline;line-height:inherit;padding:.10em .08em .10em;margin:0 .01em;vertical-align:baseline;border-radius:0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+/* Automatic wrapping: collapse ordinary spaces at visual line starts. Explicit first-line indent remains CSS text-indent. */
+.capture .excerpt .block{white-space:pre-line}
 /* 본문 줄바꿈 방식: 문장부호는 line-break:strict로 줄 첫머리에 떨어지지 않게 유지 */
 .capture[data-wrap-mode="word"] .excerpt .block{word-break:keep-all!important;overflow-wrap:break-word!important;line-break:strict!important}
 .capture[data-wrap-mode="char"] .excerpt .block{word-break:break-all!important;overflow-wrap:anywhere!important;line-break:strict!important}
@@ -1173,10 +1175,22 @@ function layoutRich(ctx,text,maxWidth,tracking=0,indent=0){
  let i=0;
  while(i<units.length){
   if(units[i].ch==='\n'){newLine();i++;continue}
-  if(mode==='char'){appendChar(units[i]);i++;continue}
+  if(mode==='char'){if(units[i].ch===' '){if(line.width>0){let j=i+1;while(j<units.length&&units[j].ch===' ')j++;if(j<units.length&&units[j].ch!=='\n'){const gap=unitWidth(units[i]),next=unitWidth(units[j]);if(line.width+gap+next>maxWidth-line.indent)newLine();else appendUnit(units[i])}}while(i<units.length&&units[i].ch===' ')i++;continue}appendChar(units[i]);i++;continue}
   if(/\s/.test(units[i].ch)){
    let spaces=[];while(i<units.length&&units[i].ch!=='\n'&&/\s/.test(units[i].ch)){spaces.push(units[i]);i++}
-   if(line.width>0){for(const u of spaces){const cw=unitWidth(u),avail=maxWidth-line.indent;if(line.width+cw>avail){newLine();break}appendUnit(u)}}
+   if(line.width>0){
+    const next=[];let j=i;
+    while(j<units.length&&units[j].ch!=='\n'&&!/\s/.test(units[j].ch)){next.push(units[j]);j++}
+    const gap=spaces.length?unitWidth(spaces[0]):0;
+    const nextWidth=next.reduce((sum,u)=>sum+unitWidth(u),0);
+    if(next.length&&line.width+gap+nextWidth>maxWidth-line.indent){
+     // Wrap before the word, discarding only the gap that straddles this automatic break.
+     newLine();
+    }else if(next.length){
+     // Match pre-line: ordinary consecutive spaces collapse to one inside a line.
+     appendUnit(spaces[0]);
+    }
+   }
    continue
   }
   const token=[];while(i<units.length&&units[i].ch!=='\n'&&!/\s/.test(units[i].ch)){token.push(units[i]);i++}
