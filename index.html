@@ -9,16 +9,11 @@
 <style>
 
 @font-face{font-family:"ExcerptPretendard";src:url("./PretendardVariable.ttf") format("truetype");font-style:normal;font-weight:100 900;font-display:swap}
-@font-face{font-family:"ExcerptPretendardJP";src:url("./PretendardJPVariable.ttf") format("truetype");font-style:normal;font-weight:100 900;font-display:swap}
-@font-face{font-family:"ExcerptDungGeunMo";src:url("./DungGeunMo.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:"ExcerptRIDIBatang";src:url("./RIDIBatang.otf") format("opentype");font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:"ExcerptNanumMyeongjo";src:url("./NanumMyeongjo.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:"ExcerptGalmuri11";src:url("./Galmuri11.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:"ExcerptMyoeun";src:url("./Griun_MyoeunHeullim-Rg.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:"ExcerptHSYuji";src:url("./HS유지체.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:"ExcerptDDURAE";src:url("./GriunXHangeul_DDURAE-Rg.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:"ExcerptSarangSeuReoUn";src:url("./GriunXHangeul_SarangSeuReoUn-Rg.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:"ExcerptKoPubBatangLight";src:url("./KoPubWorld%20Batang%20Light.ttf") format("truetype");font-style:normal;font-weight:300;font-display:swap}
+@font-face{font-family:"ExcerptNanumSquareRound";src:url("./NanumSquareRoundR.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"ExcerptYcomputer";src:url("./Ycomputer.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 :root{
   --ui-bg:#f5f4f1;--panel:#fff;--soft:#f7f7f8;--line:#e7e5e1;--ink:#343438;--muted:#99979a;
   --dark:#44454a;--accent:#45464b;--radius:18px;--shadow:0 16px 48px rgba(40,40,45,.08);
@@ -348,6 +343,13 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
  .preview-zoom-control{order:3;width:100%;margin:4px 0 0;min-width:0}
  .preview-zoom-control input[type=range]{flex:1;width:auto}
 }
+
+/* character · creator footer visibility fix */
+.capture[data-theme="paper"] .footer:not(.hidden),
+.capture[data-theme="clean"] .footer:not(.hidden),
+.capture[data-theme="film"] .footer:not(.hidden),
+.capture[data-theme="diary"] .footer:not(.hidden),
+.capture[data-theme="magazine"] .footer:not(.hidden){display:flex;flex:0 0 auto;min-height:1em}
 </style>
 </head>
 <body>
@@ -404,18 +406,11 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
           <select class="format-font-select" id="inlineFontSelect" aria-label="선택 영역 글꼴">
             <option value="body">본문 글꼴 (기본)</option>
             <option value="pretendard">Pretendard</option>
-            <option value="system">시스템 글꼴</option>
-            <option value="pretendardjp">Pretendard JP</option>
             <option value="galmuri11">Galmuri11</option>
             <option value="myoeun">그리운 묘은흘림체</option>
-            <option value="ddurae">그리운X국한박 뚜레</option>
-            <option value="sarangseureoun">그리운X국한박 사랑스러운</option>
-            <option value="hsyuji">HS유지체</option>
-            <option value="dunggeunmo">둥근모꼴+</option>
             <option value="kopubbatang">KoPubWorld 바탕 Light</option>
-            <option value="ridibatang">리디바탕</option>
-            <option value="nanummyeongjo">나눔명조</option>
-            <option value="custom">업로드 폰트</option>
+            <option value="nanumsquareround">나눔스퀘어라운드</option>
+            <option value="ycomputer">Y콤퓨타체</option>
           </select>
           <button class="format-tool format-font-apply" type="button" id="applyInlineFont">선택 글꼴 적용</button>
           <button class="format-tool" type="button" id="clearInlineFormat">서식 지우기</button>
@@ -449,7 +444,7 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
         <label class="field">짧은 문구</label><input id="tagline" type="text" >
         <div class="row"><div><label class="field">캐릭터</label><input id="creatorName" type="text" ></div><div><label class="field">제작자</label><input id="creatorId" type="text" ></div></div>
         <label class="field">캐릭터 · 제작자 표기 위치</label><select id="creatorAlign"><option value="left">왼쪽</option><option value="center">가운데</option><option value="right">오른쪽</option></select>
-        <div class="hint">제작자와 아이디를 모두 입력하면 하단에 자동으로 ‘제작자 · 아이디’ 형식으로 표시됩니다.</div>
+        <div class="hint">캐릭터와 제작자를 입력하면 하단에 자동으로 ‘캐릭터 · 제작자’ 형식으로 표시됩니다.</div>
       </div>
     </section>
 
@@ -567,38 +562,22 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
         <div class="range-row"><div><div class="lab">자간</div><input id="tracking" type="range" min="-2" max="5" step="0.1" value="0"></div><div class="num" id="trackingVal">0</div></div>
         <div class="range-row"><div><div class="lab">문단 간격</div><input id="blockGap" type="range" min="4" max="40" value="18"></div><div class="num" id="blockGapVal">18</div></div>
         <label class="field">기본 글꼴</label><select id="fontFamily">
-          <option value="pretendard" selected>Pretendard (기본 · 없으면 시스템)</option>
-          <option value="system">시스템 글꼴</option>
-          <option value="pretendardjp">Pretendard JP</option>
+          <option value="pretendard" selected>Pretendard (기본)</option>
           <option value="galmuri11">Galmuri11</option>
           <option value="myoeun">그리운 묘은흘림체</option>
-          <option value="ddurae">그리운X국한박 뚜레</option>
-          <option value="sarangseureoun">그리운X국한박 사랑스러운</option>
-          <option value="hsyuji">HS유지체</option>
-          <option value="dunggeunmo">둥근모꼴+</option>
           <option value="kopubbatang">KoPubWorld 바탕 Light</option>
-          <option value="ridibatang">리디바탕</option>
-          <option value="nanummyeongjo">나눔명조</option>
-          <option value="custom">업로드 폰트</option>
+            <option value="nanumsquareround">나눔스퀘어라운드</option>
+            <option value="ycomputer">Y콤퓨타체</option>
         </select>
         <label class="field">제목 글꼴</label><select id="titleFontFamily">
           <option value="pretendard" selected>Pretendard</option>
-          <option value="system">시스템 글꼴</option>
-          <option value="pretendardjp">Pretendard JP</option>
           <option value="galmuri11">Galmuri11</option>
           <option value="myoeun">그리운 묘은흘림체</option>
-          <option value="ddurae">그리운X국한박 뚜레</option>
-          <option value="sarangseureoun">그리운X국한박 사랑스러운</option>
-          <option value="hsyuji">HS유지체</option>
-          <option value="dunggeunmo">둥근모꼴+</option>
           <option value="kopubbatang">KoPubWorld 바탕 Light</option>
-          <option value="ridibatang">리디바탕</option>
-          <option value="nanummyeongjo">나눔명조</option>
-          <option value="custom">업로드 폰트</option>
+            <option value="nanumsquareround">나눔스퀘어라운드</option>
+            <option value="ycomputer">Y콤퓨타체</option>
         </select>
         <div class="hint">제목 글꼴은 기본 글꼴과 완전히 별도로 적용됩니다. 장면 제목과 네이버 블로그 제목에만 사용하고, 본문·말풍선·메타 정보는 위의 기본 글꼴을 사용해요.</div>
-        <label class="field">내 폰트 파일</label><div class="upload-row"><input id="customFontFile" type="file" accept=".woff,.woff2,.ttf,.otf,font/woff,font/woff2,font/ttf,font/otf"><button class="btn" id="clearCustomFont" type="button">지우기</button></div>
-        <div class="hint" id="customFontStatus">기본 글꼴의 기본값은 Pretendard입니다. 제목 글꼴은 별도로 선택할 수 있어요. 등록 폰트는 index.html과 같은 폴더에서 자동으로 불러옵니다. 직접 업로드한 폰트는 현재 브라우저 세션에서만 유지됩니다.</div>
       </div>
     </section>
 
@@ -961,25 +940,14 @@ function formatKakaoDate(raw){
 function activePadding(){const y=+$('#padY').value;if(state.outerMode==='custom')return {t:+$('#padTop').value,r:+$('#padRight').value,b:+$('#padBottom').value,l:+$('#padLeft').value};return {t:y,r:+$('#padX').value,b:y,l:+$('#padX').value}}
 function fontFamilyByValue(value){
  let v=value||'pretendard';
- if(['serif','sans','mono'].includes(v))v='pretendard';
  if(v==='body')return fontFamily();
- if(v==='pretendard')return '"ExcerptPretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",ui-sans-serif,system-ui,sans-serif';
- if(v==='system')return '-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",ui-sans-serif,system-ui,sans-serif';
- if(v==='pretendardjp')return '"ExcerptPretendardJP","ExcerptPretendard",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",ui-sans-serif,system-ui,sans-serif';
- if(v==='galmuri11')return '"ExcerptGalmuri11","ExcerptPretendardJP","ExcerptPretendard",ui-monospace,monospace';
- if(v==='myoeun')return '"ExcerptMyoeun","ExcerptRIDIBatang","ExcerptNanumMyeongjo",serif';
- if(v==='ddurae')return '"ExcerptDDURAE","ExcerptPretendard",sans-serif';
- if(v==='sarangseureoun')return '"ExcerptSarangSeuReoUn","ExcerptPretendard",sans-serif';
- if(v==='hsyuji')return '"ExcerptHSYuji","ExcerptPretendard",sans-serif';
- if(v==='dunggeunmo')return '"ExcerptDungGeunMo",ui-monospace,monospace';
- if(v==='kopubbatang')return '"ExcerptKoPubBatangLight","ExcerptRIDIBatang","ExcerptNanumMyeongjo",serif';
- if(v==='ridibatang')return '"ExcerptRIDIBatang",Georgia,"Noto Serif KR",serif';
- if(v==='nanummyeongjo')return '"ExcerptNanumMyeongjo",Georgia,"Noto Serif KR",serif';
- if(v==='custom'&&state.customFontLoaded)return '"ExcerptCustom",ui-sans-serif,system-ui,sans-serif';
+ if(v==='galmuri11')return '"ExcerptGalmuri11","ExcerptPretendard",ui-monospace,monospace';
+ if(v==='myoeun')return '"ExcerptMyoeun","ExcerptPretendard",serif';
+ if(v==='kopubbatang')return '"ExcerptKoPubBatangLight","ExcerptPretendard",serif';
  return '"ExcerptPretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",ui-sans-serif,system-ui,sans-serif'
 }
 function fontFamily(){
- let v=$('#fontFamily').value;if(['serif','sans','mono'].includes(v)){v='pretendard';$('#fontFamily').value='pretendard'}
+ let v=$('#fontFamily').value;if(!['pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer'].includes(v)){v='pretendard';$('#fontFamily').value='pretendard'}
  return fontFamilyByValue(v)
 }
 function titleFontFamily(){let v=$('#titleFontFamily')?.value||'pretendard';if(v==='body')v='pretendard';return fontFamilyByValue(v)}
@@ -1164,7 +1132,7 @@ function update(){
 function updateDisplays(){const ids=['bgOpacity','bgPositionX','bgPositionY','cjkScale','bodySize','translationSize','bubbleSize','titleSize','headSize','metaSize','footerSize','lineHeight','tracking','blockGap','stagePad','previewWidth','canvasWidth','padX','padY','padTop','padBottom','padRight','padLeft','titleGap','footerGap','magazineHeaderTitleGap','magazineTitleTagGap','naverProfileGap','avatarSize','bubbleGap','bubbleRadius','bubblePx','bubblePy','bubbleLineHeight','inlineImageWidth','inlineImageHeight','inlineImageRadius','sideLeftWidth','sideRightWidth','sideImageGap','twitterImageHeight','instagramImageHeight'];ids.forEach(id=>{const n=$('#'+id+'Val');if(n)n.textContent=$('#'+id).value+(['bgOpacity','bgPositionX','bgPositionY','bubbleMax','inlineImageWidth'].includes(id)?'%':'')});$('#bubbleMaxVal').textContent=$('#bubbleMax').value+'%'}
 const CONTENT_INPUT_IDS=new Set(['inputText','naverBodyText','twitterBodyText','instagramBodyText','character','archiveNo','date','time','place','sceneTitle','tagline','creatorName','creatorId','settingsPresetName','settingsPreset','memberPreset']);
 function getSettings(){const inputs={};$$('input[id],select[id],textarea[id]').forEach(el=>{if(el.type==='file'||CONTENT_INPUT_IDS.has(el.id))return;inputs[el.id]=el.type==='checkbox'?el.checked:el.value});const presetState={...state,bgData:state.bgData,members:JSON.parse(JSON.stringify(state.members)),themePostImages:{naver:'',twitter:'',instagram:''}};return {state:presetState,inputs}}
-function applySettings(data){if(!data)return;if(data.state){state={...state,...data.state};if(['paper','film','diary'].includes(state.theme))state.theme='clean';state.inlineCrop={1:safeCrop(state.inlineCrop?.[1]),2:safeCrop(state.inlineCrop?.[2]),3:safeCrop(state.inlineCrop?.[3])};state.sideCrop={left:safeCrop(state.sideCrop?.left),right:safeCrop(state.sideCrop?.right)};state.themePostImages={naver:state.themePostImages?.naver||'',twitter:state.themePostImages?.twitter||'',instagram:state.themePostImages?.instagram||''};state.themePostCrop={naver:safeCrop(state.themePostCrop?.naver),twitter:safeCrop(state.themePostCrop?.twitter),instagram:safeCrop(state.themePostCrop?.instagram)};renderMembers();setSeg('#outerMode',state.outerMode);setSeg('#bubbleAlign',state.bubbleAlign);setSeg('#bubbleTheme',state.bubbleTheme);setSeg('#avatarShape',state.avatarShape);setChatStyle(state.chatStyle||'custom',false);$$('.theme').forEach(b=>b.classList.toggle('active',b.dataset.theme===state.theme))}if(data.inputs)Object.entries(data.inputs).forEach(([id,v])=>{if(CONTENT_INPUT_IDS.has(id))return;const e=$('#'+id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v});$('#customPadding').classList.toggle('hidden',state.outerMode!=='custom');if(!$('#ratio').value||$('#ratio').value==='auto')$('#ratio').value='content';if($('#ratio').value==='fourfive')$('#ratio').value='portrait';if(data.inputs?.instagramSong&&!$('#instagramArtist').value&&!$('#instagramSongTitle').value){const oldSong=String(data.inputs.instagramSong||'').trim(),parts=oldSong.split(/\s*[·•]\s*/);if(parts.length>1){$('#instagramArtist').value=parts.shift();$('#instagramSongTitle').value=parts.join(' · ')}else $('#instagramSongTitle').value=oldSong;}if(['serif','sans','mono'].includes($('#fontFamily').value))$('#fontFamily').value='pretendard';if($('#fontFamily').value==='custom'&&!state.customFontLoaded)$('#fontFamily').value='pretendard';if(!$('#titleFontFamily').value||$('#titleFontFamily').value==='body')$('#titleFontFamily').value='pretendard';if($('#titleFontFamily').value==='custom'&&!state.customFontLoaded)$('#titleFontFamily').value='pretendard';if($('#inlineFontSelect').value==='custom'&&!state.customFontLoaded)$('#inlineFontSelect').value='body';if($('#canvasWidth'))$('#canvasWidth').value=$('#previewWidth').value;update()}
+function applySettings(data){if(!data)return;if(data.state){state={...state,...data.state};if(['paper','film','diary'].includes(state.theme))state.theme='clean';state.inlineCrop={1:safeCrop(state.inlineCrop?.[1]),2:safeCrop(state.inlineCrop?.[2]),3:safeCrop(state.inlineCrop?.[3])};state.sideCrop={left:safeCrop(state.sideCrop?.left),right:safeCrop(state.sideCrop?.right)};state.themePostImages={naver:state.themePostImages?.naver||'',twitter:state.themePostImages?.twitter||'',instagram:state.themePostImages?.instagram||''};state.themePostCrop={naver:safeCrop(state.themePostCrop?.naver),twitter:safeCrop(state.themePostCrop?.twitter),instagram:safeCrop(state.themePostCrop?.instagram)};renderMembers();setSeg('#outerMode',state.outerMode);setSeg('#bubbleAlign',state.bubbleAlign);setSeg('#bubbleTheme',state.bubbleTheme);setSeg('#avatarShape',state.avatarShape);setChatStyle(state.chatStyle||'custom',false);$$('.theme').forEach(b=>b.classList.toggle('active',b.dataset.theme===state.theme))}if(data.inputs)Object.entries(data.inputs).forEach(([id,v])=>{if(CONTENT_INPUT_IDS.has(id))return;const e=$('#'+id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v});$('#customPadding').classList.toggle('hidden',state.outerMode!=='custom');if(!$('#ratio').value||$('#ratio').value==='auto')$('#ratio').value='content';if($('#ratio').value==='fourfive')$('#ratio').value='portrait';if(data.inputs?.instagramSong&&!$('#instagramArtist').value&&!$('#instagramSongTitle').value){const oldSong=String(data.inputs.instagramSong||'').trim(),parts=oldSong.split(/\s*[·•]\s*/);if(parts.length>1){$('#instagramArtist').value=parts.shift();$('#instagramSongTitle').value=parts.join(' · ')}else $('#instagramSongTitle').value=oldSong;}if(['serif','sans','mono'].includes($('#fontFamily').value))$('#fontFamily').value='pretendard';if($('#fontFamily').value==='custom'&&!state.customFontLoaded)$('#fontFamily').value='pretendard';if(!['pretendard','galmuri11','myoeun','kopubbatang'].includes($('#titleFontFamily').value))$('#titleFontFamily').value='pretendard';if(!['body','pretendard','galmuri11','myoeun','kopubbatang'].includes($('#inlineFontSelect').value))$('#inlineFontSelect').value='body';if($('#canvasWidth'))$('#canvasWidth').value=$('#previewWidth').value;update()}
 async function loadImage(data){if(!data)return null;return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=data})}
 function wrap(ctx,text,maxWidth){const out=[];String(text).split('\n').forEach(part=>{if(!part){out.push('');return}let line='';Array.from(part).forEach(ch=>{const test=line+ch;if(line&&ctx.measureText(test).width>maxWidth){out.push(line);line=ch}else line=test});if(line)out.push(line)});return out}
 function roundRect(ctx,x,y,w,h,r,fill,stroke){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
@@ -1230,20 +1198,25 @@ function drawRichLines(ctx,lines,x,y,size,lineStep,baseColor,tracking=0,align='l
 function getPreviewContentMetrics(){
  const capture=$('#capture'),inner=$('#captureInner');
  if(!capture||!inner)return null;
+ const ir=inner.getBoundingClientRect(),cr=capture.getBoundingClientRect();
  let top=Infinity,bottom=-Infinity;
- for(const el of inner.children){
-  if(!(el instanceof HTMLElement))continue;
+ const els=[...inner.querySelectorAll('*')].filter(el=>el instanceof HTMLElement);
+ for(const el of els){
   const cs=getComputedStyle(el);
-  if(cs.display==='none'||cs.visibility==='hidden')continue;
+  if(cs.display==='none'||cs.visibility==='hidden'||cs.opacity==='0')continue;
   if(el.classList.contains('hidden'))continue;
-  const h=el.offsetHeight,w=el.offsetWidth;
-  if(h<=0||w<=0)continue;
-  const t=el.offsetTop,b=t+h;
+  const r=el.getBoundingClientRect();
+  if(r.width<=0||r.height<=0)continue;
+  const hasVisibleText=(el.textContent||'').trim().length>0;
+  const hasVisual=el.matches('img,svg,canvas,.inline-image,.bubble,.member-avatar,.side-image,.naver-avatar,.imessage-avatar,.chat-head-avatar');
+  if(!hasVisibleText&&!hasVisual)continue;
+  const t=r.top-cr.top,b=r.bottom-cr.top;
   if(t<top)top=t;
   if(b>bottom)bottom=b;
  }
  if(!isFinite(top)||!isFinite(bottom)||bottom<=top)return null;
- return {top,height:bottom-top,containerHeight:inner.clientHeight||capture.clientHeight||0,captureWidth:capture.offsetWidth||0};
+ const zoom=cr.width&&capture.offsetWidth?cr.width/capture.offsetWidth:1;
+ return {top:top/zoom,height:(bottom-top)/zoom,containerHeight:inner.clientHeight||capture.clientHeight||0,captureWidth:capture.offsetWidth||0};
 }
 
 async function renderCanvas(){
@@ -1255,7 +1228,7 @@ async function renderCanvas(){
  const titleGapPx=+$('#titleGap').value*sx,footerGapPx=+$('#footerGap').value*sx,magazineHeaderTitleGapPx=+$('#magazineHeaderTitleGap').value*sx,magazineTitleTagGapPx=+$('#magazineTitleTagGap').value*sx,naverProfileGapPx=+$('#naverProfileGap').value*sx,creatorName=$('#creatorName').value.trim(),creatorId=$('#creatorId').value.trim(),creatorText=[creatorName,creatorId].filter(Boolean).join(' · '),creatorAlign=$('#creatorAlign').value||'left';const hasHeader=!!(no||date||time||c||place),hasTitle=!!(title||tag),hasFooter=!!creatorText;let chromeEst=0;if(state.theme==='film')chromeEst=28*sx;else if(state.theme==='iosnotes')chromeEst=58*sx;else if(state.theme==='naverblog')chromeEst=(($('#naverTitle').value.trim()||title)?titleFs*1.15:0)+(72*sx)+naverProfileGapPx;else if(state.theme==='twitter'){const tm=[1,2,3].reduce((n,i)=>n+(($('#twitterMention'+i+'Text')?.value||'').trim()?110:0),0),ti=blocks.filter(b=>(b.type==='theme-image'&&state.themePostImages?.[b.themeKey])||(b.type==='image'&&state.inlineImages?.[b.slot])).slice(0,3).length;chromeEst=(280+tm+ti*1200)*sx;}else if(state.theme==='instagram'){const igMode=$('#instagramImageMode')?.value||'contain',igH=+($('#instagramImageHeight')?.value||520);chromeEst=(igMode==='fill'?igH+520:2200)*sx;}else if(state.theme==='chat')chromeEst=(state.chatStyle==='imessage'?124:(state.chatStyle==='kakao'?118:72))*sx;else if(state.theme==='magazine'){const mt=titleFs*1.15;chromeEst=(no||date||time?(headFs+10*sx):0)+(c||place?(10*sx+metaFs*1.2+magazineHeaderTitleGapPx):((no||date||time)&&hasTitle?magazineHeaderTitleGapPx:0))+(title?mt*1.12:0)+(tag?((title?magazineTitleTagGapPx:0)+Math.max(metaFs*1.15,12*sx)):0)+(hasTitle?titleGapPx:0)}else chromeEst=(hasHeader?(headFs*1.9+metaFs*3.2):0)+(hasTitle?(titleFs*1.2+titleGapPx):0);const bodyEst=blocks.reduce((n,b)=>n+(b.type==='spacer'?Math.max(1,b.lines||1)*fs*.7:((b.type==='image'||b.type==='theme-image')?inlineH+gap:Math.max(1,Math.ceil(stripRichMarkup(b.text).length/30))*fs*lh+gap)),0);let est=pad.t+pad.b+chromeEst+bodyEst+(hasFooter?(footerGapPx+footerFs*1.5):0);let H=ratio==='square'?W:ratio==='fourfive'||ratio==='portrait'?Math.round(W*1.25):ratio==='landscape'?Math.max(Math.round((+$('#previewWidth').value*.62)*sx),Math.min(Math.round(2600*sx),Math.round(est))):ratio==='story'?Math.round(W*16/9):Math.max(Math.round(240*sx),Math.min(Math.round(5000*sx),Math.round(est)));
  const verticalCenterOn=!!$('#verticalCenter')?.checked&&!['content','landscape'].includes(ratio);if(verticalCenterOn){pad.t=0;pad.b=0}
  const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;const ctx=canvas.getContext('2d');const twitterDark=state.theme==='twitter'&&($('#twitterMode').value||'light')==='dark';ctx.fillStyle=state.theme==='chat'?$('#chatBgColor').value:(state.theme==='twitter'?(twitterDark?'#000000':'#ffffff'):(state.theme==='instagram'?'#ffffff':$('#bgColor').value));ctx.fillRect(0,0,W,H);const bgImg=await loadImage(state.bgData).catch(()=>null);if(bgImg){drawImageFit(ctx,bgImg,0,0,W,H,+$('#bgOpacity').value/100,$('#bgFit').value,+$('#bgPositionX').value,+$('#bgPositionY').value);const ov=+$('#bgOverlay').value/100;if(ov){ctx.fillStyle=`rgba(0,0,0,${ov})`;ctx.fillRect(0,0,W,H)}};const sideLeftImg=await loadImage(state.sideLeftData).catch(()=>null),sideRightImg=await loadImage(state.sideRightData).catch(()=>null);if(sideLeftImg&&leftSideW)drawImageCropped(ctx,sideLeftImg,0,0,leftSideW,H,1,$('#sideImageFit').value,cropFor('side','left'));if(sideRightImg&&rightSideW)drawImageCropped(ctx,sideRightImg,W-rightSideW,0,rightSideW,H,1,$('#sideImageFit').value,cropFor('side','right'));const inlineImgs={};for(const slot of [1,2,3])inlineImgs[slot]=await loadImage(state.inlineImages?.[slot]).catch(()=>null);const themePostImgs={};for(const key of ['naver','twitter','instagram'])themePostImgs[key]=await loadImage(state.themePostImages?.[key]||'').catch(()=>null)
- const previewMetrics=verticalCenterOn?getPreviewContentMetrics():null;let centerShiftY=0;if(verticalCenterOn&&previewMetrics?.height){const contentH=Math.max(0,previewMetrics.height*sx);if(contentH<H)centerShiftY=(H-contentH)/2;}
+ const previewMetrics=verticalCenterOn?getPreviewContentMetrics():null;let centerShiftY=0;if(verticalCenterOn&&previewMetrics?.height){const contentH=previewMetrics.height*sx;centerShiftY=Math.max(0,(H-contentH)/2);}
  const textColor=$('#textColor').value;ctx.save();if(centerShiftY)ctx.translate(0,centerShiftY);ctx.fillStyle=textColor;ctx.textBaseline='top';let x=pad.l,y=pad.t,maxW=W-pad.l-pad.r;
  const naverImg=await loadImage(state.naverProfile).catch(()=>null);
  const twitterImg=await loadImage(state.twitterProfile).catch(()=>null);const twitterMentionImgs={};for(const i of [1,2,3])twitterMentionImgs[i]=await loadImage(state.twitterMentionProfiles?.[i]||'').catch(()=>null);
@@ -1441,7 +1414,7 @@ for(const key of ['naver','twitter','instagram']){const inp=$('#'+key+'PostImage
 $$('.crop-theme-post-image').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.themeImage;openCropEditor('theme',key,state.themePostImages?.[key]||'',false)}));
 $$('.clear-theme-post-image').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.themeImage;state.themePostImages=state.themePostImages||{naver:'',twitter:'',instagram:''};state.themePostCrop=state.themePostCrop||{};state.themePostImages[key]='';state.themePostCrop[key]={x:50,y:50,zoom:1};const inp=$('#'+key+'PostImage');if(inp)inp.value='';update()}));
 function selectedRegisteredFontName(v){
- return ({pretendard:'ExcerptPretendard',pretendardjp:'ExcerptPretendardJP',galmuri11:'ExcerptGalmuri11',myoeun:'ExcerptMyoeun',ddurae:'ExcerptDDURAE',sarangseureoun:'ExcerptSarangSeuReoUn',hsyuji:'ExcerptHSYuji',dunggeunmo:'ExcerptDungGeunMo',kopubbatang:'ExcerptKoPubBatangLight',ridibatang:'ExcerptRIDIBatang',nanummyeongjo:'ExcerptNanumMyeongjo',custom:'ExcerptCustom'})[v]||'';
+ return ({pretendard:'ExcerptPretendard',pretendardjp:'ExcerptPretendardJP',galmuri11:'ExcerptGalmuri11',myoeun:'ExcerptMyoeun',ddurae:'ExcerptDDURAE',sarangseureoun:'ExcerptSarangSeuReoUn',hsyuji:'ExcerptHSYuji',dunggeunmo:'ExcerptDungGeunMo',kopubbatang:'ExcerptKoPubBatangLight',nanumsquareround:'ExcerptNanumSquareRound',ycomputer:'ExcerptYcomputer',ridibatang:'ExcerptRIDIBatang',nanummyeongjo:'ExcerptNanumMyeongjo',custom:'ExcerptCustom'})[v]||'';
 }
 async function ensureFontValue(v){
  if(v==='body')v=$('#fontFamily').value;const name=selectedRegisteredFontName(v);
@@ -1455,8 +1428,8 @@ async function warmDefaultFont(){
  }catch(e){}
  update();
 }
-$('#fontFamily').addEventListener('change',ensureSelectedFont);$('#titleFontFamily').addEventListener('change',async()=>{let v=$('#titleFontFamily').value;if(v==='body'){v='pretendard';$('#titleFontFamily').value=v}await ensureFontValue(v);update()});$('#inlineFontSelect').addEventListener('change',()=>ensureFontValue($('#inlineFontSelect').value));
-$('#customFontFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const buf=await file.arrayBuffer();const face=new FontFace('ExcerptCustom',buf);await face.load();document.fonts.add(face);state.customFontLoaded=true;$('#fontFamily').value='custom';$('#customFontStatus').textContent='적용됨: '+file.name+' · 현재 브라우저 세션에서 사용 중';update();toast('폰트를 적용했어요.')}catch(err){console.error(err);state.customFontLoaded=false;toast('폰트를 불러오지 못했어요.')}});$('#clearCustomFont').addEventListener('click',()=>{state.customFontLoaded=false;$('#customFontFile').value='';if($('#fontFamily').value==='custom')$('#fontFamily').value='pretendard';if($('#titleFontFamily').value==='custom')$('#titleFontFamily').value='pretendard';if($('#inlineFontSelect').value==='custom')$('#inlineFontSelect').value='body';$('#customFontStatus').textContent='기본 글꼴의 기본값은 Pretendard입니다. 제목 글꼴은 별도로 선택할 수 있어요. 등록 폰트는 index.html과 같은 폴더에서 자동으로 불러옵니다. 직접 업로드한 폰트는 현재 브라우저 세션에서만 유지됩니다.';update()});
+$('#fontFamily').addEventListener('change',ensureSelectedFont);$('#titleFontFamily').addEventListener('change',async()=>{let v=$('#titleFontFamily').value;if(!['pretendard','galmuri11','myoeun','kopubbatang'].includes(v)){v='pretendard';$('#titleFontFamily').value=v}await ensureFontValue(v);update()});$('#inlineFontSelect').addEventListener('change',()=>ensureFontValue($('#inlineFontSelect').value));
+
 $('#addMember').addEventListener('click',addMember);$('#memberList').addEventListener('input',e=>{const id=e.target.dataset.id,m=state.members.find(x=>x.id===id);if(!m)return;if(e.target.classList.contains('member-name'))m.name=e.target.value;if(e.target.classList.contains('member-bubble'))m.bubble=e.target.value;if(e.target.classList.contains('member-namecolor'))m.nameColor=e.target.value;update()});$('#memberList').addEventListener('change',e=>{const id=e.target.dataset.id,m=state.members.find(x=>x.id===id);if(!m)return;if(e.target.classList.contains('member-side'))m.side=e.target.value;if(e.target.classList.contains('member-image'))fileToData(e.target.files&&e.target.files[0],d=>{m.image=d;update()});update()});$('#memberList').addEventListener('click',e=>{const del=e.target.closest('.member-delete'),clr=e.target.closest('.member-image-clear');if(del){state.members=state.members.filter(m=>m.id!==del.dataset.id);renderMembers();update()}if(clr){const m=state.members.find(x=>x.id===clr.dataset.id);if(m)m.image='';renderMembers();update()}});
 $('#saveMemberPreset').addEventListener('click',()=>{const name=prompt('프리셋 이름을 입력하세요.');if(!name)return;const p=readMemberPresets();p[name]=JSON.parse(JSON.stringify(state.members));localStorage.setItem(MEMBER_PRESET,JSON.stringify(p));refreshPresetSelect();$('#memberPreset').value=name;toast('멤버 프리셋을 저장했어요.')});$('#memberPreset').addEventListener('change',()=>{const p=readMemberPresets();if(p[$('#memberPreset').value]){state.members=JSON.parse(JSON.stringify(p[$('#memberPreset').value]));renderMembers();update()}});$('#deleteMemberPreset').addEventListener('click',()=>{const k=$('#memberPreset').value;if(!k)return;const p=readMemberPresets();delete p[k];localStorage.setItem(MEMBER_PRESET,JSON.stringify(p));refreshPresetSelect();toast('프리셋을 삭제했어요.')});
 const textArea=$('#inputText');['select','keyup','mouseup','touchend','input'].forEach(ev=>textArea.addEventListener(ev,rememberTextSelection));$('#formatToolbar').addEventListener('pointerdown',rememberTextSelection);
