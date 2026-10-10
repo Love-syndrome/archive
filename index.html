@@ -413,7 +413,7 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
             <option value="nanumsquareround">나눔스퀘어라운드</option>
             <option value="ycomputer">Y콤퓨타체</option>
             <option value="chosunnm">조선일보명조</option>
-          </select>
+          <option value="custom">내 업로드 글꼴</option></select>
           <button class="format-tool format-font-apply" type="button" id="applyInlineFont">선택 글꼴 적용</button>
           <button class="format-tool" type="button" id="clearInlineFormat">서식 지우기</button>
           <button class="format-tool" type="button" id="insertSectionDivider">n장</button>
@@ -571,7 +571,8 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
             <option value="nanumsquareround">나눔스퀘어라운드</option>
             <option value="ycomputer">Y콤퓨타체</option>
             <option value="chosunnm">조선일보명조</option>
-        </select>
+        <option value="custom">내 업로드 글꼴</option></select>
+        <label class="field">내 글꼴 업로드 · TTF / OTF / WOFF</label><div class="upload-row"><input id="customFontFile" type="file" accept=".ttf,.otf,.woff,.woff2"><button class="btn" id="clearCustomFont" type="button">지우기</button></div><div class="hint" id="customFontStatus">업로드한 글꼴은 현재 페이지에서 미리보기와 PNG 저장에 사용할 수 있어요.</div>
         <label class="field">제목 글꼴</label><select id="titleFontFamily">
           <option value="pretendard" selected>Pretendard</option>
           <option value="galmuri11">Galmuri11</option>
@@ -580,7 +581,7 @@ input[type="color"]::-moz-color-swatch{border:0!important;border-radius:7px!impo
             <option value="nanumsquareround">나눔스퀘어라운드</option>
             <option value="ycomputer">Y콤퓨타체</option>
             <option value="chosunnm">조선일보명조</option>
-        </select>
+        <option value="custom">내 업로드 글꼴</option></select>
         <div class="hint">제목 글꼴은 기본 글꼴과 완전히 별도로 적용됩니다. 장면 제목과 네이버 블로그 제목에만 사용하고, 본문·말풍선·메타 정보는 위의 기본 글꼴을 사용해요.</div>
       </div>
     </section>
@@ -945,6 +946,7 @@ function activePadding(){const y=+$('#padY').value;if(state.outerMode==='custom'
 function fontFamilyByValue(value){
  let v=value||'pretendard';
  if(v==='body')return fontFamily();
+ if(v==='custom')return state.customFontLoaded?'"ExcerptCustom",sans-serif':'"ExcerptPretendard",sans-serif';
  if(v==='galmuri11')return '"ExcerptGalmuri11","ExcerptPretendard",ui-monospace,monospace';
  if(v==='myoeun')return '"ExcerptMyoeun","ExcerptPretendard",serif';
  if(v==='kopubbatang')return '"ExcerptKoPubBatangLight","ExcerptPretendard",serif';
@@ -954,7 +956,7 @@ function fontFamilyByValue(value){
  return '"ExcerptPretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",ui-sans-serif,system-ui,sans-serif'
 }
 function fontFamily(){
- let v=$('#fontFamily').value;if(!['pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer','chosunnm'].includes(v)){v='pretendard';$('#fontFamily').value='pretendard'}
+ let v=$('#fontFamily').value;if(!['pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer','chosunnm','custom'].includes(v)){v='pretendard';$('#fontFamily').value='pretendard'}
  return fontFamilyByValue(v)
 }
 function titleFontFamily(){let v=$('#titleFontFamily')?.value||'pretendard';if(v==='body')v='pretendard';return fontFamilyByValue(v)}
@@ -1139,7 +1141,7 @@ function update(){
 function updateDisplays(){const ids=['bgOpacity','bgPositionX','bgPositionY','cjkScale','bodySize','translationSize','bubbleSize','titleSize','headSize','metaSize','footerSize','lineHeight','tracking','blockGap','stagePad','previewWidth','canvasWidth','padX','padY','padTop','padBottom','padRight','padLeft','titleGap','footerGap','magazineHeaderTitleGap','magazineTitleTagGap','naverProfileGap','avatarSize','bubbleGap','bubbleRadius','bubblePx','bubblePy','bubbleLineHeight','inlineImageWidth','inlineImageHeight','inlineImageRadius','sideLeftWidth','sideRightWidth','sideImageGap','twitterImageHeight','instagramImageHeight'];ids.forEach(id=>{const n=$('#'+id+'Val');if(n)n.textContent=$('#'+id).value+(['bgOpacity','bgPositionX','bgPositionY','bubbleMax','inlineImageWidth'].includes(id)?'%':'')});$('#bubbleMaxVal').textContent=$('#bubbleMax').value+'%'}
 const CONTENT_INPUT_IDS=new Set(['inputText','naverBodyText','twitterBodyText','instagramBodyText','character','archiveNo','date','time','place','sceneTitle','tagline','creatorName','creatorId','settingsPresetName','settingsPreset','memberPreset']);
 function getSettings(){const inputs={};$$('input[id],select[id],textarea[id]').forEach(el=>{if(el.type==='file'||CONTENT_INPUT_IDS.has(el.id))return;inputs[el.id]=el.type==='checkbox'?el.checked:el.value});const presetState={...state,bgData:state.bgData,members:JSON.parse(JSON.stringify(state.members)),themePostImages:{naver:'',twitter:'',instagram:''}};return {state:presetState,inputs}}
-function applySettings(data){if(!data)return;if(data.state){state={...state,...data.state};if(['paper','film','diary'].includes(state.theme))state.theme='clean';state.inlineCrop={1:safeCrop(state.inlineCrop?.[1]),2:safeCrop(state.inlineCrop?.[2]),3:safeCrop(state.inlineCrop?.[3])};state.sideCrop={left:safeCrop(state.sideCrop?.left),right:safeCrop(state.sideCrop?.right)};state.themePostImages={naver:state.themePostImages?.naver||'',twitter:state.themePostImages?.twitter||'',instagram:state.themePostImages?.instagram||''};state.themePostCrop={naver:safeCrop(state.themePostCrop?.naver),twitter:safeCrop(state.themePostCrop?.twitter),instagram:safeCrop(state.themePostCrop?.instagram)};renderMembers();setSeg('#outerMode',state.outerMode);setSeg('#bubbleAlign',state.bubbleAlign);setSeg('#bubbleTheme',state.bubbleTheme);setSeg('#avatarShape',state.avatarShape);setChatStyle(state.chatStyle||'custom',false);$$('.theme').forEach(b=>b.classList.toggle('active',b.dataset.theme===state.theme))}if(data.inputs)Object.entries(data.inputs).forEach(([id,v])=>{if(CONTENT_INPUT_IDS.has(id))return;const e=$('#'+id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v});$('#customPadding').classList.toggle('hidden',state.outerMode!=='custom');if(!$('#ratio').value||$('#ratio').value==='auto')$('#ratio').value='content';if($('#ratio').value==='fourfive')$('#ratio').value='portrait';if(data.inputs?.instagramSong&&!$('#instagramArtist').value&&!$('#instagramSongTitle').value){const oldSong=String(data.inputs.instagramSong||'').trim(),parts=oldSong.split(/\s*[·•]\s*/);if(parts.length>1){$('#instagramArtist').value=parts.shift();$('#instagramSongTitle').value=parts.join(' · ')}else $('#instagramSongTitle').value=oldSong;}if(['serif','sans','mono'].includes($('#fontFamily').value))$('#fontFamily').value='pretendard';if($('#fontFamily').value==='custom'&&!state.customFontLoaded)$('#fontFamily').value='pretendard';if(!['pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer','chosunnm'].includes($('#titleFontFamily').value))$('#titleFontFamily').value='pretendard';if(!['body','pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer','chosunnm'].includes($('#inlineFontSelect').value))$('#inlineFontSelect').value='body';if($('#canvasWidth'))$('#canvasWidth').value=$('#previewWidth').value;update()}
+function applySettings(data){if(!data)return;if(data.state){state={...state,...data.state};if(['paper','film','diary'].includes(state.theme))state.theme='clean';state.inlineCrop={1:safeCrop(state.inlineCrop?.[1]),2:safeCrop(state.inlineCrop?.[2]),3:safeCrop(state.inlineCrop?.[3])};state.sideCrop={left:safeCrop(state.sideCrop?.left),right:safeCrop(state.sideCrop?.right)};state.themePostImages={naver:state.themePostImages?.naver||'',twitter:state.themePostImages?.twitter||'',instagram:state.themePostImages?.instagram||''};state.themePostCrop={naver:safeCrop(state.themePostCrop?.naver),twitter:safeCrop(state.themePostCrop?.twitter),instagram:safeCrop(state.themePostCrop?.instagram)};renderMembers();setSeg('#outerMode',state.outerMode);setSeg('#bubbleAlign',state.bubbleAlign);setSeg('#bubbleTheme',state.bubbleTheme);setSeg('#avatarShape',state.avatarShape);setChatStyle(state.chatStyle||'custom',false);$$('.theme').forEach(b=>b.classList.toggle('active',b.dataset.theme===state.theme))}if(data.inputs)Object.entries(data.inputs).forEach(([id,v])=>{if(CONTENT_INPUT_IDS.has(id))return;const e=$('#'+id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v});$('#customPadding').classList.toggle('hidden',state.outerMode!=='custom');if(!$('#ratio').value||$('#ratio').value==='auto')$('#ratio').value='content';if($('#ratio').value==='fourfive')$('#ratio').value='portrait';if(data.inputs?.instagramSong&&!$('#instagramArtist').value&&!$('#instagramSongTitle').value){const oldSong=String(data.inputs.instagramSong||'').trim(),parts=oldSong.split(/\s*[·•]\s*/);if(parts.length>1){$('#instagramArtist').value=parts.shift();$('#instagramSongTitle').value=parts.join(' · ')}else $('#instagramSongTitle').value=oldSong;}if(['serif','sans','mono'].includes($('#fontFamily').value))$('#fontFamily').value='pretendard';if($('#fontFamily').value==='custom'&&!state.customFontLoaded)$('#fontFamily').value='pretendard';if(!['pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer','chosunnm','custom'].includes($('#titleFontFamily').value))$('#titleFontFamily').value='pretendard';if(!['body','pretendard','galmuri11','myoeun','kopubbatang','nanumsquareround','ycomputer','chosunnm','custom'].includes($('#inlineFontSelect').value))$('#inlineFontSelect').value='body';if($('#canvasWidth'))$('#canvasWidth').value=$('#previewWidth').value;update()}
 async function loadImage(data){if(!data)return null;return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=data})}
 function wrap(ctx,text,maxWidth){const out=[];String(text).split('\n').forEach(part=>{if(!part){out.push('');return}let line='';Array.from(part).forEach(ch=>{const test=line+ch;if(line&&ctx.measureText(test).width>maxWidth){out.push(line);line=ch}else line=test});if(line)out.push(line)});return out}
 function roundRect(ctx,x,y,w,h,r,fill,stroke){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
@@ -1226,6 +1228,9 @@ function getPreviewContentMetrics(){
  return {top:top/zoom,height:(bottom-top)/zoom,containerHeight:inner.clientHeight||capture.clientHeight||0,captureWidth:capture.offsetWidth||0};
 }
 
+// Session-only custom font upload (no external files are modified).
+$('#customFontFile').addEventListener('change',async event=>{const file=event.target.files?.[0];if(!file)return;try{const face=new FontFace('ExcerptCustom',await file.arrayBuffer());await face.load();document.fonts.add(face);state.customFontLoaded=true;$('#fontFamily').value='custom';$('#customFontStatus').textContent='적용됨: '+file.name+' · 현재 페이지에서 사용 가능';update();}catch(error){console.error(error);state.customFontLoaded=false;$('#customFontStatus').textContent='글꼴을 불러오지 못했어요.';}});
+$('#clearCustomFont').addEventListener('click',()=>{state.customFontLoaded=false;$('#customFontFile').value='';for(const id of ['fontFamily','titleFontFamily','inlineFontSelect']){const el=$('#'+id);if(el?.value==='custom')el.value=id==='inlineFontSelect'?'body':'pretendard';}$('#customFontStatus').textContent='업로드한 글꼴은 현재 페이지에서 미리보기와 PNG 저장에 사용할 수 있어요.';update();});
 async function renderCanvas(){
  await document.fonts.ready;
  const fontValues=new Set([$('#fontFamily').value,$('#titleFontFamily')?.value||'pretendard']);
